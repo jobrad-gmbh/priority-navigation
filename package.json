@@ -1,5 +1,5 @@
 {
-  "name": "priority-nav",
+  "name": "@jobrad/priority-nav",
   "title": "priority-nav",
   "version": "1.0.13",
   "main": "dist/priority-nav.js",
@@ -42,5 +42,8 @@
   },
   "scripts": {
     "test": "grunt jshint"
+  },
+  "publishConfig": {
+    "registry": "https://artifactory.service.jobrad.org/artifactory/api/npm/npm/"
   }
 }
