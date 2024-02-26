@@ -1,9 +1,3 @@
-/*
- * priority-nav - v1.0.13 | (c) 2018 @gijsroge | MIT license
- * Repository: https://github.com/gijsroge/priority-navigation.git
- * Description: Priority+ pattern navigation that hides menu items if they don't fit on screen.
- * Demo: http://gijsroge.github.io/priority-nav.js/
- */
 (function (root, factory) {
     if (typeof define === "function" && define.amd) {
         define("priorityNav", factory(root));
@@ -12,9 +6,7 @@
     } else {
         root.priorityNav = factory(root);
     }
-})(window || this, function (root) {
-
-    "use strict";
+})(window || undefined, function (root) {
 
     /**
      * Variables
@@ -23,9 +15,8 @@
     var breaks = []; // Object to store instances with breakpoints where the instances menu item"s didin"t fit.
     var supports = !!document.querySelector && !!root.addEventListener; // Feature test
     var settings = {};
-    var instance = 0;
     var count = 0;
-    var mainNavWrapper, totalWidth, restWidth, mainNav, navDropdown, navDropdownToggle, dropDownWidth, toggleWrapper;
+    var mainNavWrapper, totalWidth, restWidth, mainNav, navDropdown, navDropdownToggle, toggleWrapper;
     var viewportWidth = 0;
 
     /**
@@ -270,9 +261,7 @@
         totalWidth = getElementContentWidth(_this);
         //Check if parent is the navwrapper before calculating its width
         if (_this.querySelector(navDropdown).parentNode === _this) {
-            dropDownWidth = _this.querySelector(navDropdown).offsetWidth;
-        } else {
-            dropDownWidth = 0;
+            _this.querySelector(navDropdown).offsetWidth;
         }
         restWidth = getChildrenWidth(_this) + settings.offsetPixels;
         viewportWidth = viewportSize().width;
@@ -289,11 +278,6 @@
          * Check if it is the first run
          */
         var delay = _this.getAttribute("instance") === 0 ? delay : settings.throttleDelay;
-
-        /**
-         * Increase instance
-         */
-        instance++;
 
         /**
          * Debounced execution of the main logic
@@ -318,7 +302,7 @@
                 //move item to dropdown
                 priorityNav.toDropdown(_this, identifier);
                 //recalculate widths
-                calculateWidths(_this, identifier);
+                calculateWidths(_this);
                 //update dropdownToggle label
                 if(viewportWidth < settings.breakPoint) updateLabel(_this, identifier, settings.navDropdownBreakpointLabel);
             }
@@ -349,7 +333,7 @@
                 //show navDropdownBreakpointLabel
                 _this.classList.add("is-empty");
                 updateLabel(_this, identifier, settings.navDropdownBreakpointLabel);
-            }else{
+            }else {
                 _this.classList.remove("is-empty");
             }
 
@@ -522,7 +506,7 @@
              */
             if(-1 !== _this.className.indexOf( "is-open" )){
                 _this.querySelector(navDropdown).setAttribute("aria-hidden", "false");
-            }else{
+            }else {
                 _this.querySelector(navDropdown).setAttribute("aria-hidden", "true");
                 _this.querySelector(navDropdown).blur();
             }
@@ -550,14 +534,6 @@
                 mainNavWrapper.classList.remove("is-open");
             }
         };
-    };
-
-
-    /**
-     * Remove function
-     */
-    Element.prototype.remove = function() {
-        this.parentElement.removeChild(this);
     };
 
     /*global HTMLCollection */
@@ -601,7 +577,7 @@
         var firstChar = string.charAt(0);
         if (firstChar === "." || firstChar === "#") {
             return false;
-        }else{
+        }else {
             return true;
         }
     };
@@ -706,11 +682,6 @@
             priorityNav.doesItFit(_this);
 
         });
-
-        /**
-         * Count amount of instances
-         */
-        instance++;
 
         /**
          * Add class to HTML element to activate conditional CSS
